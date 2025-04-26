@@ -1,5 +1,7 @@
 import pygame
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 from constants import *
 
 
@@ -11,14 +13,21 @@ def main():
     #init Pygame
     pygame.init()
 
+    #create groups
     updateable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+    asteroidfield = pygame.sprite.Group()
 
     #dynamically add a class variable
     Player.containers=(updateable, drawable)
+    Asteroid.containers=(asteroids,updateable, drawable)
+    AsteroidField.containers=(updateable)
 
     #now that variable is added, create an instance. It will automagically be added to the two groups.
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    #roid = Asteroid(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,20)
+    asteroid_field = AsteroidField()
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     ticker = pygame.time.Clock()
@@ -37,10 +46,15 @@ def main():
             u.update(delta_time)
         for d in drawable:
             d.draw(screen)
+        for a in asteroids:
+            if(a.collision(player)):
+                print("Game over!")
+                exit(1)
+
 
         #player.update(delta_time)
         #player.draw(screen)
-        
+
         pygame.display.flip()
         delta_time = (ticker.tick(60))/1000
 
