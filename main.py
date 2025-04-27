@@ -1,9 +1,10 @@
+import sys
 import pygame
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 from constants import *
-
 
 def main():
     print("Starting Asteroids!")
@@ -18,11 +19,14 @@ def main():
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     asteroidfield = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     #dynamically add a class variable
     Player.containers=(updateable, drawable)
     Asteroid.containers=(asteroids,updateable, drawable)
     AsteroidField.containers=(updateable)
+    Shot.containers = (shots, drawable, updateable)
+
 
     #now that variable is added, create an instance. It will automagically be added to the two groups.
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
@@ -44,14 +48,15 @@ def main():
         #itterage over the two groups - update and draw
         for u in updateable:
             u.update(delta_time)
+
         for d in drawable:
             d.draw(screen)
+
         for a in asteroids:
             if(a.collision(player)):
                 print("Game over!")
-                exit(1)
-
-
+                sys.exit(1)
+            
         #player.update(delta_time)
         #player.draw(screen)
 
