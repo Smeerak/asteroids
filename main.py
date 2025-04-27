@@ -39,6 +39,8 @@ def main():
 
     #game looop
     while(True):
+        delta_time = (ticker.tick(60))/1000
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return()
@@ -61,7 +63,7 @@ def main():
         #player.draw(screen)
 
         pygame.display.flip()
-        delta_time = (ticker.tick(60))/1000
+        #delta_time = (ticker.tick(60))/1000
 
 if __name__ == "__main__":
     main()
