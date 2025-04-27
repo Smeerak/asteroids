@@ -58,6 +58,12 @@ def main():
             if(a.collision(player)):
                 print("Game over!")
                 sys.exit(1)
+            for shot in shots:
+                if(a.collision(shot)):
+                    a.kill()
+                    shot.kill()
+
+        
             
         #player.update(delta_time)
         #player.draw(screen)
