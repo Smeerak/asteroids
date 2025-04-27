@@ -60,7 +60,8 @@ def main():
                 sys.exit(1)
             for shot in shots:
                 if(a.collision(shot)):
-                    a.kill()
+                    #a.kill()
+                    a.split()
                     shot.kill()
 
         
