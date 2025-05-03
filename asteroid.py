@@ -6,6 +6,7 @@ from constants import *
 
 #comment
 #comment 2
+#comment 3
 class Asteroid(CircleShape):
 
     def __init__(self, x, y, radius):
